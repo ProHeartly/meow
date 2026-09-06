@@ -6,10 +6,6 @@ export default function bot( {history} ) {
 
     // yah let's start with cooperate
     if (n === 0) return ["C", null]
-
-    const { you, opponent } = history[n-1]
-
-    const good = (you==="D" && opponent==="C") || (you==="C" && opponent==="C")
-    const move = good ? you: (you==="C" ? "D": "C")
+    const move = history.at(-1).opponent
     return [move, null]
 }
