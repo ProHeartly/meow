@@ -11,6 +11,8 @@ export default function bot( {history, memory} ) {
             streakC: 0,
             streakD: 0,
             flips: 0,
+            unprovokedD: 0,
+            retaliating: 0,
             mode: 'c'
         }
     }
@@ -50,6 +52,8 @@ export default function bot( {history, memory} ) {
         memory.mode = 's'
     } else if (memory.streakD >= 3) {
         memory.mode = 'd';
+    } else if (memory.unprovokedD > 0 && memory.streakD < 3 && memory.mode !== "s") {
+        memory.mode = 'do'
     } else if (memory.streakC >= 2) {
         memory.mode = 'c'
     }
@@ -66,6 +70,19 @@ export default function bot( {history, memory} ) {
         case 'd':
             // revenge :D
             move = "D"
+            break;
+
+        case 'do':
+            if (opp === "D") {
+                memory.retaliating = 1
+                move = "D"
+            } else if (memory > 0) {
+                memory.retaliating--
+                move = "D"
+            } else {
+                //  forgive and try bring cooperation
+                move = "C"
+            }
             break;
 
         case 's':

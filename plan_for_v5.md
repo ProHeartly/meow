@@ -42,8 +42,9 @@ oopD: total times oop defected
 streakC: current streak of cooperation
 streakD: current streak of defection
 flips: times that opp changed their move
-
+unprovokedD: times they defected when we cooperated
+retaliating: counter for our punishment phase (so we don't go on death spiral)
 mode: default to expecting type----- s means strange, d means defective and c means cooperative
 
 
-feels like i missed something ? ?? ??? ohhhh yaaa i think i forgot about uh, when they try to punish "C"
+feels like i missed something ? ?? ??? ohhhh yaaa i think i forgot about uh, when they try to punish "C", let's try to make it good against smth that tries to back stab?
