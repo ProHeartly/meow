@@ -35,3 +35,15 @@ strange(s): just out right strange
 
 nvm lets change things little bit, instead of doing y, p or n;
 let's do a counter, if it is doing continuously "C", c gets bigger, and like wise..
+
+little again change in plannnn:
+oppC: total times oop cooperated
+oopD: total times oop defected
+streakC: current streak of cooperation
+streakD: current streak of defection
+flips: times that opp changed their move
+
+mode: default to expecting type----- s means strange, d means defective and c means cooperative
+
+
+feels like i missed something ? ?? ??? ohhhh yaaa i think i forgot about uh, when they try to punish "C"
