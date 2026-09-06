@@ -38,7 +38,7 @@ export default function bot( {history, memory} ) {
         }
     }
 
-    if (n===INITIAL+3) {
+    else if (n===INITIAL+3) {
         const isTFT = history.slice(1).every((turn, index) => turn.opponent === history[index].you)
         if (isTFT) {
             memory.type = "tft"
