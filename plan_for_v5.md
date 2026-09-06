@@ -44,7 +44,8 @@ streakD: current streak of defection
 flips: times that opp changed their move
 unprovokedD: times they defected when we cooperated
 retaliating: counter for our punishment phase (so we don't go on death spiral)
-mode: default to expecting type----- s means strange, d means defective and c means cooperative
+mode: default to expecting type----- s means strange, d means defective and c means cooperative, do means dominating, a means alternating
 
 
 feels like i missed something ? ?? ??? ohhhh yaaa i think i forgot about uh, when they try to punish "C", let's try to make it good against smth that tries to back stab?
+Wait in case of alternating, we can sync up with them to farm 1.5?? 🤔 nvm spaming "D" is better as we get 1-1 and 3-0 which adds up and averages to 2. But, lets categorize 'a' as differnt which means alternating

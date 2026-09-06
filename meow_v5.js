@@ -6,8 +6,8 @@ export default function bot( {history, memory} ) {
 
     if (memory==null) {
         memory = {
-            oopC: 0,
-            oopD: 0,
+            oppC: 0,
+            oppD: 0,
             streakC: 0,
             streakD: 0,
             flips: 0,
@@ -25,30 +25,36 @@ export default function bot( {history, memory} ) {
     // this stores last state
     const last = history[n-1];
 
-    const oop = last.opponent
+    const opp = last.opponent
     const you = last.you
 
-    if (oop === "C") {
-        memory.oopC++
+    if (opp === "C") {
+        memory.oppC++
         memory.streakC++
         memory.streakD = 0
     } else {
-        memory.oopD++
+        memory.oppD++
         memory.streakD++
         memory.streakC = 0
+
+        if (you === "C") {
+            memory.unprovokedD++
+        }
     }
 
     // checks how variable is the opp
     if (n>1) {
         const oppP = history[n-2].opponent
-        if (oop !== oppP) {
+        if (opp !== oppP) {
             memory.flips++ 
         }
     }
 
     const flipRate = n > 5 ? memory.flips / n: 0
 
-    if (flipRate > 0.5) {
+    if (flipRate >=0.8) {
+        memory.mode = 'a'
+    } else if (flipRate > 0.5) {
         memory.mode = 's'
     } else if (memory.streakD >= 3) {
         memory.mode = 'd';
@@ -76,13 +82,18 @@ export default function bot( {history, memory} ) {
             if (opp === "D") {
                 memory.retaliating = 1
                 move = "D"
-            } else if (memory > 0) {
+            } else if (memory.retaliating > 0) {
                 memory.retaliating--
                 move = "D"
             } else {
                 //  forgive and try bring cooperation
                 move = "C"
             }
+            break;
+        
+        case 'a':
+            // farming the alters with spamming 'd'
+            move = "D"
             break;
 
         case 's':
