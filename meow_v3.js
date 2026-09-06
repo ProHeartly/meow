@@ -19,6 +19,9 @@ export default function bot( {history, memory} ) {
 
     // yah let's start with cooperate
     let move = "C"
+    if (n===0) {
+        return [move, memory]
+    }
 
     // tit for tat logic
     if (n<INITIAL && n>0) {
