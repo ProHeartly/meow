@@ -18,9 +18,11 @@ export default function bot( {history, memory} ) {
     }
 
     // yah let's start with cooperate
-    let move = "C"
+    let move;
     if (n===0) {
-        return [move, memory]
+        return ["C", memory]
+    } else {
+        move = history.at(-1).opponent
     }
 
     // tit for tat logic
