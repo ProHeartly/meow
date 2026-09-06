@@ -2,7 +2,7 @@
 // a checker for identifying tit for tat and implementing a problem
 
 // This variable is threshold upto which, the bot plays init move
-const INITIAL = 3;
+const INITIAL = 50;
 
 // init move: (tit for tat)
 function init(prev) {
@@ -39,7 +39,9 @@ export default function bot( {history, memory} ) {
     }
 
     else if (n===INITIAL+3) {
-        const isTFT = history.slice(1).every((turn, index) => turn.opponent === history[index].you)
+        const allC = history.slice(0, INITIAL + 2).every(turn => turn.opponent === "C")
+        const def = history[INITIAL + 2].opponent === "D"
+        const isTFT = allC && def
         if (isTFT) {
             memory.type = "tft"
         }
