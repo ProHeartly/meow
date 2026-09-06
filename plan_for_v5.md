@@ -15,9 +15,19 @@ After looking out in what my bot did and what other bot are doing, I was able to
 comparing between always "C" and one with grudge or smth like that, the maths seems to treat both equally 🤔
 ..lets get more maths-
 hmmmmm IDKKK why I'm not able to come to a conclusion with maths too, I tried adding tft and seems like reactive bot has adv in that 🤔
+once more doing maths, always "D" might be a problem here.. lets see how others tackle this. hmmmmm.. seems like most of the top bots are giving away 5 "C" before they start their revenge but why?? Lemme study this shi.
+update: I looked thru them, they do try to take initative.. but i think they have something complex algorithm below them! sooo I'm just gonna go with reactive bot ig
+
+hmmm: I think I just realise something important, I looked out for other bots but I didn't check why my own bots didn't work, yahhh lets have a look at it first
 
 ## So let's make it:
 
 okok enough yap and shii lets start making!
 
 * first of all, it will try to cooperate and mostly just "C"
+
+im thinking creating a memory so that it can store following things: (y means yes, p means potentially, n means no)
+cooperative(c): if the opp wants cooperation or not
+deflective(d): if it just wants to deflect
+dominative(do): seems friendly than changes to deflective under specific conditions
+strange(s): just out right strange
