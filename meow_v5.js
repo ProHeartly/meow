@@ -103,6 +103,11 @@ export default function bot( {history, memory} ) {
                 memory.chance--
             }
 
+            // if they try to regain trust 🤔
+            if (memory.chance <= 0 && memory.streakC >= 2) {
+                memory.chance = 3;
+            }
+
             // we play tit for tat to test them
             if (memory.chance > 0) {
                 move = opp
