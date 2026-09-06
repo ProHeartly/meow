@@ -19,6 +19,7 @@ once more doing maths, always "D" might be a problem here.. lets see how others 
 update: I looked thru them, they do try to take initative.. but i think they have something complex algorithm below them! sooo I'm just gonna go with reactive bot ig
 
 hmmm: I think I just realise something important, I looked out for other bots but I didn't check why my own bots didn't work, yahhh lets have a look at it first
+soo: what i found was genuenly its due to "D" spammers 🤔 and?? if something seems strange.. spam "D" lollll
 
 ## So let's make it:
 
@@ -31,3 +32,6 @@ cooperative(c): if the opp wants cooperation or not
 deflective(d): if it just wants to deflect
 dominative(do): seems friendly than changes to deflective under specific conditions
 strange(s): just out right strange
+
+nvm lets change things little bit, instead of doing y, p or n;
+let's do a counter, if it is doing continuously "C", c gets bigger, and like wise..
