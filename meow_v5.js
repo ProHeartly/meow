@@ -13,6 +13,7 @@ export default function bot( {history, memory} ) {
             flips: 0,
             unprovokedD: 0,
             retaliating: 0,
+            chance: 3,
             mode: 'c'
         }
     }
@@ -97,8 +98,19 @@ export default function bot( {history, memory} ) {
             break;
 
         case 's':
-            // spam 'D' For safety
-            move = "D"
+
+            if (you === 'C' && opp === "D") {
+                memory.chance--
+            }
+
+            // we play tit for tat to test them
+            if (memory.chance > 0) {
+                move = opp
+            } else {
+                // spam 'D' For safety
+                move = "D"
+            }
+            
             break;
     }
 

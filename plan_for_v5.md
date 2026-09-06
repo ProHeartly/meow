@@ -49,3 +49,5 @@ mode: default to expecting type----- s means strange, d means defective and c me
 
 feels like i missed something ? ?? ??? ohhhh yaaa i think i forgot about uh, when they try to punish "C", let's try to make it good against smth that tries to back stab?
 Wait in case of alternating, we can sync up with them to farm 1.5?? 🤔 nvm spaming "D" is better as we get 1-1 and 3-0 which adds up and averages to 2. But, lets categorize 'a' as differnt which means alternating
+
+i have a little plan for dealing with 's' type of bots, lets give them chance to improve and if they simply doesn't we spam "D" which seems more profitable
