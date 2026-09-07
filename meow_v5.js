@@ -14,6 +14,7 @@ export default function bot( {history, memory} ) {
             unprovokedD: 0,
             retaliating: 0,
             chance: 3,
+            spamD: 0,
             mode: 'c'
         }
     }
@@ -33,6 +34,11 @@ export default function bot( {history, memory} ) {
         memory.oppC++
         memory.streakC++
         memory.streakD = 0
+
+        if (memory.mode === 'd') {
+            memory.spamD = 0
+        }
+
     } else {
         memory.oppD++
         memory.streakD++
@@ -40,6 +46,10 @@ export default function bot( {history, memory} ) {
 
         if (you === "C") {
             memory.unprovokedD++
+
+            if (memory.mode === 'd') {
+                memory.mode = "g"
+            }
         }
     }
 
@@ -53,30 +63,71 @@ export default function bot( {history, memory} ) {
 
     const flipRate = n > 5 ? memory.flips / n: 0
 
-    if (flipRate >=0.8) {
-        memory.mode = 'a'
-    } else if (flipRate > 0.5) {
-        memory.mode = 's'
-    } else if (memory.streakD >= 3) {
-        memory.mode = 'd';
-    } else if (memory.unprovokedD > 0 && memory.streakD < 3 && memory.mode !== "s") {
-        memory.mode = 'do'
-    } else if (memory.streakC >= 2) {
-        memory.mode = 'c'
+    // eval them if we can exploit them, which in increase our 2 from cooperation to ~3
+    if (memory.mode === "test_v") {
+        if (opp === "C") {
+            memory.mode = "v"
+        } else {
+            memory.mode = "c"
+        }
+    }
+
+    // new way to lock in states (to ensure not wasting cooperation in un-needed bots)
+    const isLocked = ['v', 'test_v', 'g', 'all_d'].includes(memory.mode)
+
+    if (!isLocked) {
+        if (memory.oppC === 0 && memory.streakD >= 3) {
+            memory.mode = 'all_d'
+        } else if (flipRate >=0.8) {
+            memory.mode = 'a'
+        } else if (flipRate > 0.5) {
+            memory.mode = 's'
+        } else if (memory.streakD >= 3) {
+            memory.mode = 'd';
+        } else if (memory.unprovokedD > 0 && memory.streakD < 3 && memory.mode !== "s") {
+            memory.mode = 'do'
+        } else if (memory.oppD === 0 && memory.streakC >= 7) {
+            memory.mode = 'test_v'
+        } else if (memory.streakC >= 2) {
+            memory.mode = 'c'
+        }
+    } else if (memory.mode === 'v' && opp === 'D') {
+        memory.mode = 'd'
     }
 
     // lets keep default value in case of smth
     let move = "C";
 
     switch (memory.mode) {
+        case 'all_d':
+            move = "D"
+            break;
+
+        case 'g':
+            move = "D"
+            break;
+
         case 'c':
-            move = (n >= 99) ? "D": "C"
-            // basically means after n>=99, it just goes into end game and doesn't care about cooperation
+            move = "C"
             break;
         
-        case 'd':
-            // revenge :D
+        case 'test_v':
             move = "D"
+            break;
+
+        case 'v':
+            move = "D"
+            break;
+
+        case 'd':
+            memory.spamD++
+            if (memory.spamD % 10 === 0) {
+                move = "C"
+            } else {
+                // revenge :D
+                move = "D"
+            }
+            
             break;
 
         case 'do':
