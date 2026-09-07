@@ -121,8 +121,12 @@ export default function bot( {history, memory} ) {
 
         case 'd':
             memory.spamD++
-            if (memory.spamD % 10 === 0) {
+
+            if (memory.spamD % 5 === 0) {
                 move = "C"
+            } else if (memory.spamD % 5 === 1 && opp === "C") {
+                move = "C"
+                memory.spamD = 0
             } else {
                 // revenge :D
                 move = "D"
