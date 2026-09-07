@@ -148,7 +148,7 @@ export default function bot( {history, memory} ) {
 
         case 'do':
             if (opp === "D") {
-                memory.retaliating = 1
+                memory.retaliating = Math.min(memory.streakD, 3)
                 move = "D"
             } else if (memory.retaliating > 0) {
                 memory.retaliating--
