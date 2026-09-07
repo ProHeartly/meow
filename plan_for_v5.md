@@ -46,6 +46,8 @@ unprovokedD: times they defected when we cooperated
 retaliating: counter for our punishment phase (so we don't go on death spiral)
 chance: forgives till this number
 spamD: tracks how long we've been stuck in 'd' mode
+forgiveStage: 0 = not testing, 1 = try to cooperate, 2 = evaluating response
+forgiveFails: consecutive rejected forgiveness attempts
 mode: default to expecting type----- s means strange, d means defective and c means cooperative, do means dominating, a means alternating, 'v' for vampire, i mean we just exploit them thinking they are all 'C', 'test_v' we test if they are good for exploiting, 'g' it means they keep a grudge and 'all_d' we waste trying to cooperate
 
 
@@ -62,3 +64,9 @@ lets bring some more modes: 'v' for vampire, i mean we just exploit them thinkin
 the bot now seems all good! umm lets add a little check for if we want to exploit it, if it only played 'C' means oppD = 0
 
 I think its readyy!! lets try now
+
+STILLL Not good THINGS and I DEFINATELY caught some problems with the code structure.. lets try fix those..🫠 I was thinking of introducting some new counters like forgiveStage: which counts if we are testing forgive thingy and also a forgiveFails: which counts the no of failed attempt
+
+and also move those 'g' and spamD thingy from up to later in the code after checks.. lets also fix the rate thingy, i think when game scales, n increase that means rate decreases drastically, os we keep a window variable upto which we check
+
+let's make 'd' mode also locked mode, so we can condition its exit inside 'd' itself

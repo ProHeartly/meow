@@ -1,5 +1,7 @@
 // Imma try make reactive bot, which reacts to the opps instead of taking initiation first
 
+// KINDA LIKE CONTEXT OF THE BOT
+const WINDOW = 15
 
 export default function bot( {history, memory} ) {
     const n = history.length
@@ -10,11 +12,12 @@ export default function bot( {history, memory} ) {
             oppD: 0,
             streakC: 0,
             streakD: 0,
-            flips: 0,
             unprovokedD: 0,
             retaliating: 0,
             chance: 3,
             spamD: 0,
+            forgiveStage: 0,
+            forgiveFails: 0,
             mode: 'c'
         }
     }
@@ -35,10 +38,6 @@ export default function bot( {history, memory} ) {
         memory.streakC++
         memory.streakD = 0
 
-        if (memory.mode === 'd') {
-            memory.spamD = 0
-        }
-
     } else {
         memory.oppD++
         memory.streakD++
@@ -46,22 +45,17 @@ export default function bot( {history, memory} ) {
 
         if (you === "C") {
             memory.unprovokedD++
-
-            if (memory.mode === 'd') {
-                memory.mode = "g"
-            }
         }
     }
 
     // checks how variable is the opp
-    if (n>1) {
-        const oppP = history[n-2].opponent
-        if (opp !== oppP) {
-            memory.flips++ 
-        }
+    const recentHist = history.slice(-WINDOW)
+    let flips = 0
+    for (let i=1; i < recentHist.length; i++) {
+        if (recentHist[i].opponent !== recentHist[i-1].opponent) flips++
     }
 
-    const flipRate = n > 5 ? memory.flips / n: 0
+    const flipRate = recentHist.length > 5 ? flips / (recentHist.length - 1): 0
 
     // eval them if we can exploit them, which in increase our 2 from cooperation to ~3
     if (memory.mode === "test_v") {
@@ -73,7 +67,7 @@ export default function bot( {history, memory} ) {
     }
 
     // new way to lock in states (to ensure not wasting cooperation in un-needed bots)
-    const isLocked = ['v', 'test_v', 'g', 'all_d'].includes(memory.mode)
+    const isLocked = ['v', 'test_v', 'g', 'all_d', 'd'].includes(memory.mode)
 
     if (!isLocked) {
         if (memory.oppC === 0 && memory.streakD >= 3) {
@@ -120,18 +114,36 @@ export default function bot( {history, memory} ) {
             break;
 
         case 'd':
-            memory.spamD++
+            if (memory.forgiveStage === 0) {
+                memory.spamD++
 
-            if (memory.spamD % 5 === 0) {
+                if (memory.spamD % 5 === 0) {
+                    memory.forgiveStage = 1
+                    move = "C"
+                } else {
+                    // revenge :D
+                    move = "D"
+                }
+            } else if (memory.forgiveStage === 1) {
                 move = "C"
-            } else if (memory.spamD % 5 === 1 && opp === "C") {
-                move = "C"
-                memory.spamD = 0
+                memory.forgiveStage = 2
             } else {
-                // revenge :D
-                move = "D"
+                if (opp === "C") {
+                    memory.mode = 'c'
+                    memory.spamD = 0
+                    memory.forgiveStage = 0
+                    memory.forgiveFails = 0
+                    move = "C"
+                } else {
+                    memory.forgiveFails++
+                    memory.forgiveStage = 0
+                    move = "D"
+                    if (memory.forgiveFails >= 4) {
+                        memory.mode = 'g'
+                    }
+                }
             }
-            
+
             break;
 
         case 'do':
@@ -177,3 +189,4 @@ export default function bot( {history, memory} ) {
     return [move, memory]
 }
 
+// MAY THIS BE ITT
